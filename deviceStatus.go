@@ -21,8 +21,13 @@ func statusMetadata(d device.Interface) map[string]string {
 		wrpmeta.Field{From: "hw-last-reboot-reason", To: "/hw-last-reboot-reason"},
 		wrpmeta.Field{From: "fw-name", To: "/fw-name"},
 		wrpmeta.Field{From: "last-reconnect-reason", To: "/last-reconnect-reason"},
-		wrpmeta.Field{From: "protocol", To: "/protocol"}).
+		wrpmeta.Field{From: "protocol", To: "/protocol"},
+		wrpmeta.Field{From: "webpa-interface-used", To: "/webpa-interface-used"},
+		wrpmeta.Field{From: "webpa-last-reconnect-reason", To: "/webpa-last-reconnect-reason"},
+		wrpmeta.Field{From: "webpa-protocol", To: "/webpa-protocol"}).
 		Set("/trust", strconv.Itoa(d.Metadata().TrustClaim())).
+		Set("/partner-id", d.Metadata().PartnerIDClaim()).
+		Set("/hw-mac", string(d.ID())).
 		Build()
 
 	if allFieldsPresent {
